@@ -8,12 +8,13 @@ import './Review.css';
 
 
 const Addcompany = () => {
-  
+
   const [formData, setFormData] = useState({
     name: "",
     shortname: "",
+    slug: "",
     rating: {
-      
+
     },
     logo: null,
     tag: [],
@@ -22,12 +23,12 @@ const Addcompany = () => {
     longDescription: "",
     review: "",
     sellerDetails: {
-      seller: "", 
+      seller: "",
       Website: "",
       companyWebsite: "",
       yearFounded: "",
       HQLocation: "",
-      socialmedia: { 
+      socialmedia: {
         twitter: "",
         linkedInPage: "",
       },
@@ -99,7 +100,7 @@ const Addcompany = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
+
     if (name === "twitter") {
       // Update the Twitter field in socialmedia
       setFormData((prevFormData) => ({
@@ -157,7 +158,7 @@ const Addcompany = () => {
       }
     }
   };
-  
+
 
 
 
@@ -218,31 +219,55 @@ const Addcompany = () => {
       });
   };
 
-  const handleSubmit = async () => {
-    
+  // ...
+
+  const handleSubmit = async (e) => {
+
 
     try {
-      // Post the form data to http://localhost:5000/apps using fetch
+      const formDataToUpload = new FormData();
+
+      formDataToUpload.append("name", formData.name);
+      formDataToUpload.append("shortname", formData.shortname);
+      formDataToUpload.append("slug", formData.slug);
+      formDataToUpload.append("logo", formData.logo);
+      formDataToUpload.append("tag", formData.tag.join(", "));
+      formDataToUpload.append("Category", formData.Category);
+      formDataToUpload.append("shortDescription", formData.shortDescription);
+      formDataToUpload.append("longDescription", formData.longDescription);
+      formDataToUpload.append("review", formData.review);
+
+      // Append sellerDetails as a JSON string
+      formDataToUpload.append("sellerDetails", JSON.stringify(formData.sellerDetails));
+
+      // Append appPricing as a JSON string
+      formDataToUpload.append("appPricing", JSON.stringify(appPricing));
+
+      // Append appMedia as a JSON string
+      formDataToUpload.append("appMedia", JSON.stringify(appMedia));
+
+      console.warn(formDataToUpload);
+
+      // Post the form data to http://localhost:5000/create_products using fetch
       const response = await fetch("http://localhost:5000/create_products", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        body: formDataToUpload,
       });
 
       // Check if the response was successful before clearing the form
-      if (response.ok) {
-        
-        alert("Data saved successfully");
+      if (response.status === true) {
+        alert("Data saved successfully",);
       } else {
-        alert("There is a problem");
+        alert("There is a problem",);
       }
     } catch (error) {
       console.error("Error submitting the form:", error);
     }
   };
-  
+
+  // ...
+
+
 
 
   const [richText, setRichText] = useState('');
@@ -291,6 +316,15 @@ const Addcompany = () => {
           id="name"
           name="name"
           value={formData.name}
+          onChange={handleChange}
+          required
+        />
+        <label htmlFor="slug">slug:</label>
+        <input
+          type="text"
+          id="slug"
+          name="slug"
+          value={formData.slug}
           onChange={handleChange}
           required
         />
@@ -371,14 +405,14 @@ const Addcompany = () => {
           min={0}
           max={5}
         />
-{/* 
+
         <label htmlFor="logo">Logo:</label>
         <input
           type="file"
           id="logo"
           name="logo"
           onChange={handleImageChange}
-        /> */}
+        />
 
         <label htmlFor="tag">Tags</label>
         <input
@@ -424,22 +458,22 @@ const Addcompany = () => {
           onChange={handleChange}
           required
         />
-        
-          <label htmlFor="review">Review:</label>
-          <h1>Rich Text Editor</h1>
-          <div>
+
+        <label htmlFor="review">Review:</label>
+        <h1>Rich Text Editor</h1>
+        <div>
           <ReactQuill
             value={richText}
             onChange={handleTextChange}
             placeholder="Enter your text here..."
             modules={TextEditorModules}
             formats={TextEditorFormats}
-            style={{ height: '300px', marginBottom :'100px' }}
+            style={{ height: '300px', marginBottom: '100px' }}
           />
-          </div>
-          
-      
-        
+        </div>
+
+
+
         <label htmlFor="seller">Seller:</label>
         <input
           type="text"
@@ -492,26 +526,26 @@ const Addcompany = () => {
           required
         />
 
-<label htmlFor="twitter">Twitter:</label>
-<input
-  type="text"
-  id="twitter"
-  name="twitter"  // Use "twitter" as the name, not "sellerDetails.socialmedia.twitter"
-  value={formData.sellerDetails.socialmedia.twitter}
-  onChange={handleChange}
-/>
+        <label htmlFor="twitter">Twitter:</label>
+        <input
+          type="text"
+          id="twitter"
+          name="twitter"  // Use "twitter" as the name, not "sellerDetails.socialmedia.twitter"
+          value={formData.sellerDetails.socialmedia.twitter}
+          onChange={handleChange}
+        />
 
-<label htmlFor="linkedInPage">LinkedIn Page:</label>
-<input
-  type="text"
-  id="linkedInPage"
-  name="linkedInPage" // Use "linkedInPage" as the name, not "sellerDetails.socialmedia.linkedInPage"
-  value={formData.sellerDetails.socialmedia.linkedInPage}
-  onChange={handleChange}
-/>
+        <label htmlFor="linkedInPage">LinkedIn Page:</label>
+        <input
+          type="text"
+          id="linkedInPage"
+          name="linkedInPage" // Use "linkedInPage" as the name, not "sellerDetails.socialmedia.linkedInPage"
+          value={formData.sellerDetails.socialmedia.linkedInPage}
+          onChange={handleChange}
+        />
 
-
-{/* {appPricing.map((pricing, index) => (
+        {/* 
+{appPricing.map((pricing, index) => (
         <div key={index}>
           <input
             type="text"
@@ -538,8 +572,8 @@ const Addcompany = () => {
       ))}
       <button onClick={handleAddAppPricing}>Add Pricing</button>
 
-      {/* App Media Fields */}
-      {/* <label>Screenshots</label>
+      {/* App Media Fields
+     <label>Screenshots</label>
       <input
         type="file"
         name="officialScreenshots"
@@ -562,15 +596,13 @@ const Addcompany = () => {
         placeholder="officialDownloads"
         multiple
         onChange={(e) => handleAppMediaChange(e, 'officialDownloads')}
-      /> */} 
+      />  */}
 
 
 
         <button type="submit">Submit</button>
       </form>
     </div>
-
-    
   );
 };
 
