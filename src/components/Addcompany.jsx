@@ -204,7 +204,7 @@ const Addcompany = () => {
   }, []);
 
   const fetchCategories = () => {
-    fetch("https://appsalabackend-p20y.onrender.com/category")
+    fetch("https://appsalabackend-p20y.onrender.com/subcategory")
       .then((response) => response.json())
       .then((data) => {
         // Check if the response contains a "data" property that is an array
