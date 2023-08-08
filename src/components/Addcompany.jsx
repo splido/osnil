@@ -6,7 +6,7 @@ import './Review.css';
 
 
 
-
+    
 const Addcompany = () => {
 
   const [formData, setFormData] = useState({
