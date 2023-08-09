@@ -1,10 +1,13 @@
-function Button({type, children}) {
-  
+import { Link } from "react-router-dom"
+function Button({type, children, path}) {
+  const linkStyle = {
+    textDecoration: "none",
+  };
   return (
     <div>
-        <a href="/" className= {`btn ${type}`} >
+        <Link to={path} style={linkStyle} className= {`btn ${type}`} >
             {children}
-        </a>
+        </Link>
     </div>
   )
 }

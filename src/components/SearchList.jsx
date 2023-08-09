@@ -1,16 +1,15 @@
 import { Link } from "react-router-dom"
 
 function SeachList({filteredData}) {
+  const linkStyle ={
+    textDecoration: 'none',
+    color: "#454545",
+  }
     return (
-             <div className='dropdown-content'>
-                      {/* <a href="">Categories 1 </a>
-                      <a href="">Categories 2</a>
-                      <a href="">Categories 3</a> */
-                    //   Object.entries(childs).map(([key, value])=>(
-                    //       <a href="">{key}</a>
-                    //   ))
+             <div className='search-dropdown-content'>
+                      {
                       Object?.entries(filteredData).map(([key, value])=>(
-                        <Link to={`/product/${filteredData[key].slug}`}>{filteredData[key].name}</Link>
+                        <Link style={linkStyle} to={`/product/${filteredData[key].slug}`}>{filteredData[key].name}</Link>
                       ))
                       
                       }

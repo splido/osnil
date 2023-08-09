@@ -2,35 +2,42 @@ import logo from '../assets/img/logo.svg'
 import seachIcon from '../assets/img/search.svg'
 import Button from './Button'
 import Menu from './Menu';
-import { useState } from "react"
+import { useEffect, useState  } from "react"
 import SeachList from './SearchList';
 import { Link } from 'react-router-dom';
 function Navbar({products}) {
-  const categories = {
-    Category_1: '#',
-    Category_2: '#',
-    Category_3: '#',
+
+   const [categories, setCategories] = useState([])
+
+  useEffect(()=>{
+    fetchCategories()
+  },[])
+  const apiCategoryUrl = 'https://appsalabackend-p20y.onrender.com/category'
+
+  const fetchCategories = async() =>{
+    try{
+      const response = await fetch(apiCategoryUrl)
+      const data = await response.json()
+      setCategories(data)
+    }
+   catch (error) {
+    console.error('Error fetching categories:', error);
   }
-  const blogs = {
-    blog_1: '#',
-    blog_2: '#',
-    blog_3: '#',
-  }
+}
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [searchVal, setSearchVal] = useState('')
   const [searching, setSearching] = useState(false)
   const [dataFilter, setDataFilter] = useState('')
   const [isBlogMenuOpen, setBlogMenuOpen] = useState(false);
 
+
   const handleMouseEnter = (e) => {
+
     if (e.target.innerHTML === 'Categories'){
       setMenuOpen(true);
     }if (e.target.innerHTML === 'Blog'){
       setBlogMenuOpen(true);
     }
-    // if(e.target)
-    // setSearching(true)
-    // console.log(e.target.innerHTML)
 
   };
 
@@ -55,12 +62,7 @@ const filterData= () =>{
   );
   setDataFilter(filteredData)
 }
-//console.log(filteredData)
-// const childKey = Object.keys(filteredData)
-// console.log(childKey)
-
-// const nameValue = filteredData[childKey]?.name;
-// console.log(nameValue)
+ 
   return (
     <div>
         <nav>
@@ -73,26 +75,27 @@ const filterData= () =>{
             </div>
             <div className="menu">
                 <ul className="hover-menu-container">
-
-                    <li className='dropdown' onMouseEnter={handleMouseEnter} ><a href="/product-list">Categories</a>
+                 
+                    <li className='dropdown' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}><Link to={"/product-list"} >Categories</Link>
                 
                     {isMenuOpen && (
-                      <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <Menu childs={categories}/>
+                      <div>
+      <Menu childs={categories} />
       </div>)}
         </li>
-                    <li className='dropdown' onMouseEnter={handleMouseEnter}><a href="/">Blog</a>
+     
+                    <li className='dropdown' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}><a href="/">Blog</a>
                     {isBlogMenuOpen && (
-                       <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <Menu childs={blogs}/></div>)}
+                       <div >
+      <Menu/></div>)}
                     </li>
                    
                 </ul>
             </div>
             <div className="search">
                 <form>
-                    <input onChange={onHandleChange} onClick={onHandleClick} onMouseEnter={handleMouseEnter}  value={searchVal} type="text" id="search"  placeholder="Search"/>
-                    { searching && (
+                    <input onChange={onHandleChange} onClick={onHandleClick} onMouseEnter={handleMouseEnter}  value={searchVal} type="text" id="search"  placeholder="Search" autoComplete="off"/>
+                    { searching && dataFilter.length > 0 && (
                        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <SeachList filteredData={dataFilter}/></div>)}
                   </form>
@@ -102,9 +105,7 @@ const filterData= () =>{
             </div>
             <div >
             <div className="nav-buttons">
-           <Button type ='btn-light'>
-            <Link to={"/login"} >Login</Link>
-           </Button>
+           <Button type ='btn-light' path={"/login"}>Login</Button>
            <Button type ='btn-dark'>Register</Button>
            </div>
         </div>

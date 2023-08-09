@@ -35,125 +35,12 @@ function Home({products}) {
             <h1 className="heading">Latest Reviews</h1>
                 <div className="reviews-section">
                     <ProductCard products={products.data}/>
-                {/* <div className="reviews-card">
-                    <div>
-                        <img src={monday} alt=""/>
-                    </div>
-                    <div className="details">
-
-                        <p>monday.com</p>
-                        <div className="stars">
-                            <i className="fas fa-star" style={{color: "yellow"}}></i>
-                            <i className="fas fa-star" style={{color: "yellow"}}></i>
-                            <i className="fas fa-star" style={{color: "yellow"}}></i>
-                            <i className="fas fa-star" style={{color: "yellow"}}></i>
-                            <i className="fas fa-star" style={{color: " #D9D9D9"}}></i>
-                        </div>
-                        <div className="ratings">
-                            <p>4/5 <span>(149 Follows)</span></p>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="reviews-card">
-                        <div>
-                            <img src={dribbble} alt=""/>
-                        </div>
-                        <div className="details">
-
-                            <p>Dribble.com</p>
-                            <div className="stars">
-                                <i className="fas fa-star" style={{color: "yellow"}}></i>
-                                <i className="fas fa-star" style={{color: "yellow"}}></i>
-                                <i className="fas fa-star" style={{color: "yellow"}}></i>
-                                <i className="fas fa-star" style={{color: "yellow"}}></i>
-                                <i className="fas fa-star" style={{color: " #D9D9D9"}}></i>
-                            </div>
-                            <div className="ratings">
-                                <p>4/5 <span>(149 Follows)</span></p>
-                            </div>
-                        </div>
-                        </div>
-                        <div className="reviews-card">
-                            <div>
-                                <img src={figma} alt=""/>
-                            </div>
-                            <div className="details">
-
-                                <p>Figma</p>
-                                <div className="stars">
-                                    <i className="fas fa-star" style={{color: "yellow"}}></i>
-                                    <i className="fas fa-star" style={{color: "yellow"}}></i>
-                                    <i className="fas fa-star" style={{color: "yellow"}}></i>
-                                    <i className="fas fa-star" style={{color: "yellow"}}></i>
-                                    <i className="fas fa-star" style={{color: " #D9D9D9"}}></i>
-                                </div>
-                                <div className="ratings">
-                                    <p>4/5 <span>(149 Follows)</span></p>
-                                </div>
-                            </div>
-                        </div>
-                  
-                        <div className="reviews-card">
-                            <div>
-                                <img src={behance} alt=""/>
-                            </div>
-                            <div className="details">
-
-                                <p>Behance.net</p>
-                                <div className="stars">
-                                    <i className="fas fa-star" style={{color: "yellow"}}></i>
-                                    <i className="fas fa-star" style={{color: "yellow"}}></i>
-                                    <i className="fas fa-star" style={{color: "yellow"}}></i>
-                                    <i className="fas fa-star" style={{color: "yellow"}}></i>
-                                    <i className="fas fa-star" style={{color: " #D9D9D9"}}></i>
-                                </div>
-                                <div className="ratings">
-                                    <p>4/5 <span>(149 Follows)</span></p>
-                                </div>
-                            </div>
-                        </div> */}
 
             </div>
         <div className="features">
             <h1 className="heading">Top Feature</h1>
             <div className="feature-section">
             <ReviewCard products={products.data}/>
-                {/* <div className="feature-card">
-                    <img src={reviewIcon}alt=""/>
-                    <p className="card-heading">
-                        Reviews
-                    </p>
-                    <p>Lorem ipsum dolor sit amet 
-                        consectetur adipisicing elit. Sunt voluptates magni libero 
-                        possimus esse consequatur consectetur vero sit omnis a.</p>
-                </div>
-                <div className="feature-card">
-                    <img src={reviewIcon} alt=""/>
-                    <p className="card-heading">
-                        Reviews
-                    </p>
-                    <p>Lorem ipsum dolor sit amet 
-                        consectetur adipisicing elit. Sunt voluptates magni libero 
-                        possimus esse consequatur consectetur vero sit omnis a.</p>
-                </div>
-                <div className="feature-card">
-                    <img src={reviewIcon} alt=""/>
-                    <p className="card-heading">
-                        Reviews
-                    </p>
-                    <p>Lorem ipsum dolor sit amet 
-                        consectetur adipisicing elit. Sunt voluptates magni libero 
-                        possimus esse consequatur consectetur vero sit omnis a.</p>
-                </div>
-                <div className="feature-card">
-                    <img src={reviewIcon} alt=""/>
-                    <p className="card-heading">
-                        Reviews
-                    </p>
-                    <p>Lorem ipsum dolor sit amet 
-                        consectetur adipisicing elit. Sunt voluptates magni libero 
-                        possimus esse consequatur consectetur vero sit omnis a.</p>
-                </div> */}
             </div>
         </div>
         <div className="market-place container">

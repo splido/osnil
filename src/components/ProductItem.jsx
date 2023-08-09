@@ -18,18 +18,18 @@ function ProductItem({product}) {
 
 <Link to={`/product/${product.slug}`}> {product.name}</Link>
                     <div className="stars">
-                        <i className="fas fa-star"style={{color: "yellow;"}}></i>
-                        <i className="fas fa-star"style={{color: "yellow;"}}></i>
-                        <i className="fas fa-star"style={{color: "yellow;"}}></i>
-                        <i className="fas fa-star"style={{color: "yellow;"}}></i>
-                        <i className="fas fa-star" style={{color: " #D9D9D9;"}}></i>
+                        <i className="fas fa-star"style={{color: "yellow"}}></i>
+                        <i className="fas fa-star"style={{color: "yellow"}}></i>
+                        <i className="fas fa-star"style={{color: "yellow"}}></i>
+                        <i className="fas fa-star"style={{color: "yellow"}}></i>
+                        <i className="fas fa-star" style={{color: " #D9D9D9"}}></i>
                     </div>
                     <div className="ratings">
                         <p>{product.averageRating}<span>(149 Follows)</span></p>
                     </div>
                 </div>
             </div>
-            <p style={{ fontSize: "20px;" ,color: "#757575;"}}>
+            <p style={{ fontSize: "20px" ,color: "#757575"}}>
                 {
                     product.review
                 }

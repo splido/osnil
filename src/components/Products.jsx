@@ -3,6 +3,7 @@ import ProductItem from "./ProductItem"
 import Spinner from './Spinner'
 function Products({products}) {
   const [loading, setLoading] = useState(true);
+ 
   // const [productList, setProductList] = useState(products)
     // const [productList, setProductList] = useState()
     // useEffect(() => {
@@ -27,15 +28,15 @@ function Products({products}) {
     //     setProductList 
     // }
     // // setTimeout(fetch, 1000);
-   const product_list = products?.slice(0,5)
+
 
   return (
     <div>
        {
 
         loading ? <Spinner/> :
-        product_list ? (
-          product_list.map((product)=>(
+        products ? (
+          products.map((product)=>(
                 <ProductItem key={product.id} product = {product}/>
             ))
         ): <>

@@ -1,7 +1,10 @@
 import Button from '../components/Button'
 import Products from '../components/Products'
-
+import { useState } from "react"
 function ProductList({products}) {
+    const [population, setPopulation]= useState(5)
+    const handleClick = () => setPopulation(population+5)
+    const product_list = products?.data?.slice(0,population)
         return (
         <div>
             <header className="product-header">
@@ -22,13 +25,13 @@ function ProductList({products}) {
            
            
                     <div className="product-info">
-                    <Products products = {products.data}/>
+                    <Products products = {product_list}/>
                     </div>
                 
                
      
     
-            <Button type="btn-border">Show More</Button>
+            <button onClick={handleClick} type="btn-border">Show More</button>
           
         </div>
         </div>

@@ -7,7 +7,7 @@ function ReviewCard({products}) {
 {
         product_list ? (
           product_list.map((product)=>(
-            <div className="feature-card">
+            <div className="feature-card" key={product._id}>
             <img src={reviewIcon}alt=""/>
             <p className="card-heading">
                 Reviews

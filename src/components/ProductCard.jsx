@@ -9,7 +9,7 @@ function ProductCard({products}) {
        {
         product_list ? (
           product_list.map((product)=>(
-                <ProductCardItem key={product.id} product = {product}/>
+                <ProductCardItem key={product._id} product = {product}/>
             ))
         ): <></>
            

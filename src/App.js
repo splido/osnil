@@ -11,12 +11,17 @@ import PrivateRoute from "./pages/PrivateRoute";
 
 function App() {
   const [products, setProducts] = useState([])
+  // const [categories, setCategories] = useState([])
+  // const [subCategories, setSubCategories] = useState([])
   const [isAuthenticated, setIsAuthenticated]=useState(false)
   useEffect(()=>{
     fetchData()
+    // fetchCategories()
   },[])
 
   const apiUrl = 'https://appsalabackend-p20y.onrender.com/products'
+  // const apiCategoryUrl = 'https://appsalabackend-p20y.onrender.com/category'
+  
 
   const fetchData = async() =>{
     const response = await fetch(apiUrl)
@@ -24,6 +29,18 @@ function App() {
     setProducts(data)
     // console.log(products.data)
   }
+
+  // const fetchCategories = async() =>{
+  //   const response = await fetch(apiCategoryUrl)
+  //   const data = await response.json()
+  //   data.data.forEach(function(item) {
+  //     var name = item.name;
+  //     categories.unshift(name)
+  //   });
+
+  //   var filteredIds = data.data.filter(item => categories.includes(item.name)).map(item => item.subCategory_ids);
+  //   setSubCategories(filteredIds)
+  // }
 
 
 
