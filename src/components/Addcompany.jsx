@@ -6,7 +6,7 @@ import './Review.css';
 
 
 
-    
+
 const Addcompany = () => {
 
   const [formData, setFormData] = useState({
@@ -204,7 +204,7 @@ const Addcompany = () => {
   }, []);
 
   const fetchCategories = () => {
-    fetch("https://appsalabackend-p20y.onrender.com/subcategory")
+    fetch("http://localhost:5000/subcategory")
       .then((response) => response.json())
       .then((data) => {
         // Check if the response contains a "data" property that is an array
@@ -222,7 +222,7 @@ const Addcompany = () => {
   // ...
 
   const handleSubmit = async (e) => {
-   e.preventDefault()
+    e.preventDefault()
 
     try {
       const formDataToUpload = new FormData();
@@ -248,8 +248,8 @@ const Addcompany = () => {
 
       console.warn(formDataToUpload);
 
-      // Post the form data to https://appsalabackend-p20y.onrender.com/create_products using fetch
-      const response = await fetch("https://appsalabackend-p20y.onrender.com/create_products", {
+      // Post the form data to https://localhost:5000/create_products using fetch
+      const response = await fetch("http://localhost:5000/create_products", {
         method: "POST",
         body: formDataToUpload,
       });
@@ -460,7 +460,7 @@ const Addcompany = () => {
         />
 
         <label htmlFor="review">Review:</label>
-        <h1>Review</h1>
+        <h1>Rich Text Editor</h1>
         <div>
           <ReactQuill
             value={richText}
