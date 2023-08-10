@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 function ProductItem({product}) {
   return (
     <>
+    
+     <div className="product-info">
     <div className="product-card">
             <div className="product-reviews-card">
                 <div>
@@ -12,9 +14,6 @@ function ProductItem({product}) {
                 </div>
                 <div className="details">
 
-                    {/* <p>{
-                        product.name
-}</p> */}
 
 <Link to={`/product/${product.slug}`}> {product.name}</Link>
                     <div className="stars">
@@ -52,6 +51,7 @@ function ProductItem({product}) {
                 <div className="reaction">
                   No, I don't 😐
                 </div>
+            </div>
             </div>
             </div>
             </>

@@ -76,7 +76,7 @@ const filterData= () =>{
             <div className="menu">
                 <ul className="hover-menu-container">
                  
-                    <li className='dropdown' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}><Link to={"/product-list"} >Categories</Link>
+                    <li className='dropdown' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}><Link to={"/"} >Categories</Link>
                 
                     {isMenuOpen && (
                       <div>
@@ -94,7 +94,7 @@ const filterData= () =>{
             </div>
             <div className="search">
                 <form>
-                    <input onChange={onHandleChange} onClick={onHandleClick} onMouseEnter={handleMouseEnter}  value={searchVal} type="text" id="search"  placeholder="Search" autoComplete="off"/>
+                    <input onChange={onHandleChange} onClick={onHandleClick} onMouseEnter={handleMouseEnter} value={searchVal} type="text" id="search"  placeholder="Search" autoComplete="off"/>
                     { searching && dataFilter.length > 0 && (
                        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <SeachList filteredData={dataFilter}/></div>)}

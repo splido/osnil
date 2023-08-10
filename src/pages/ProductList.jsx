@@ -1,15 +1,47 @@
 import Button from '../components/Button'
 import Products from '../components/Products'
-import { useState } from "react"
-function ProductList({products}) {
+import { useState, useEffect } from "react"
+import { useParams } from 'react-router'
+
+function ProductList() {
+
+    const{ slug } = useParams()
+    const [category, setCategory] = useState([])
+
     const [population, setPopulation]= useState(5)
     const handleClick = () => setPopulation(population+5)
-    const product_list = products?.data?.slice(0,population)
+    // const product_list = products?.data?.slice(0,population)
+
+
+    useEffect(() => {
+
+      const apiCategoryUrl = `https://appsalabackend-p20y.onrender.com/category/${slug}`
+
+    const fetchCategory = async() =>{
+      try{
+        const response = await fetch(apiCategoryUrl)
+        const data = await response.json()
+        console.log(data)
+        setCategory(data)
+      }
+     catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  }
+
+      fetchCategory()
+    }, [slug])
+
+    
+
+ var input_string = slug
+ var output_string = input_string.replace(/-/g, " ").toUpperCase()
+    // console.log(category.data)
         return (
         <div>
             <header className="product-header">
             <div className="product-header-inner">
-            <p className="page-path">Home / Work & Productivity</p>
+            <p className="page-path">Home / {output_string}</p>
             <h1 className="product-heading">
                 The Best Note and
                 Writing <span>Apps</span> in
@@ -24,13 +56,9 @@ function ProductList({products}) {
             </div>
            
            
-                    <div className="product-info">
-                    <Products products = {product_list}/>
-                    </div>
-                
-               
-     
-    
+                   
+                    <Products products = {category.data}/>
+                    
             <button onClick={handleClick} type="btn-border">Show More</button>
           
         </div>

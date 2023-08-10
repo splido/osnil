@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function Menu({ childs }) {
   const [subCategories, setSubCategories] = useState([]);
@@ -42,8 +43,9 @@ function Menu({ childs }) {
       {subMenu && subCategories && (
         <div className="sub-categories" onMouseLeave={handleMouseLeave}>
           {subCategories.map((item) => (
-            <li className="categories" key={item._id}>
+            <li className="categories" key={item._id}> <Link to={`/category/${item.slug}`}>
               {item.name}
+              </Link>
             </li>
           ))}
         </div>
