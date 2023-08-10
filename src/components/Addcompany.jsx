@@ -204,7 +204,7 @@ const Addcompany = () => {
   }, []);
 
   const fetchCategories = () => {
-    fetch("http://localhost:5000/subcategory")
+    fetch("https://appsalabackend-p20y.onrender.com/subcategory")
       .then((response) => response.json())
       .then((data) => {
         // Check if the response contains a "data" property that is an array
@@ -249,7 +249,7 @@ const Addcompany = () => {
       console.warn(formDataToUpload);
 
       // Post the form data to https://localhost:5000/create_products using fetch
-      const response = await fetch("http://localhost:5000/create_products", {
+      const response = await fetch("https://appsalabackend-p20y.onrender.com/create_products", {
         method: "POST",
         body: formDataToUpload,
       });
