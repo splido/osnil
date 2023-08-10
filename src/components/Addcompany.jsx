@@ -258,7 +258,7 @@ const Addcompany = () => {
       if (response.status === true) {
         alert("Data saved successfully",);
       } else {
-        alert("There is a problem",);
+        alert(response.data);
       }
     } catch (error) {
       console.error("Error submitting the form:", error);
