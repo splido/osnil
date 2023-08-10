@@ -222,7 +222,7 @@ const Addcompany = () => {
   // ...
 
   const handleSubmit = async (e) => {
-
+   e.preventDefault()
 
     try {
       const formDataToUpload = new FormData();
