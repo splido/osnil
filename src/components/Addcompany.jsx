@@ -195,6 +195,8 @@ const Addcompany = () => {
     }));
   };
 
+  const [richText, setRichText] = useState('');
+
   // State to store the list of categories fetched from the API
   const [categories, setCategories] = useState([]);
 
@@ -235,7 +237,7 @@ const Addcompany = () => {
       formDataToUpload.append("Category", formData.Category);
       formDataToUpload.append("shortDescription", formData.shortDescription);
       formDataToUpload.append("longDescription", formData.longDescription);
-      formDataToUpload.append("review", formData.review);
+      formDataToUpload.append("review", formData.richText);
 
       // Append sellerDetails as a JSON string
       formDataToUpload.append("sellerDetails", JSON.stringify(formData.sellerDetails));
@@ -248,11 +250,13 @@ const Addcompany = () => {
 
       console.warn(formDataToUpload);
 
-      // Post the form data to https://appsalabackend-p20y.onrender.com/create_products using fetch
+      // Post the form data to http://localhost:5000/create_products using fetch
       const response = await fetch("https://appsalabackend-p20y.onrender.com/create_products", {
         method: "POST",
         body: formDataToUpload,
       });
+
+      
 
       // Check if the response was successful before clearing the form
       if (response.status === true) {
@@ -270,7 +274,7 @@ const Addcompany = () => {
 
 
 
-  const [richText, setRichText] = useState('');
+ 
 
   const handleTextChange = (content) => {
     setRichText(content);
