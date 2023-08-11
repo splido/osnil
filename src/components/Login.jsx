@@ -2,14 +2,10 @@ import React, { useState } from 'react';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login = ({setIsAuthenticated}) => {
+const Login = ({setIsAuthenticated,setCredentials,credentials}) => {
     const navigate = useNavigate()
     // const [isAuthenticated, setIsAuthenticated]=useState(false)
-    
-    const [credentials, setCredentials] = useState({
-        email: '',
-        password: '',
-    });
+   
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -32,21 +28,25 @@ const Login = ({setIsAuthenticated}) => {
                 "Content-Type": "application/json"
               }
             });
-        
+            // console.log(res)
+            // const token = await res.headers['x-api-token']
+            // console.log(token)
             let result = await res.json();
+           
+            // console.log(result)
         
             if (result.status) {
               setIsAuthenticated(true);
-              navigate("/form");
+              navigate(`/profile/${result.data.userId}`);
             } else {
               alert('wrong email or password');
             }
         
             // Reset the form fields after submission
-            setCredentials({
-              email: '',
-              password: '',
-            });
+            // setCredentials({
+            //   email: '',
+            //   password: '',
+            // });
           } catch (error) {
             console.error("Error during fetch:", error);
             alert('An error occurred during the login process.');
@@ -54,7 +54,6 @@ const Login = ({setIsAuthenticated}) => {
         };
     return (
         <>
-            <h2>Login</h2>
             <div className="container">
 
                 <form onSubmit={handleSubmit}>

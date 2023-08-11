@@ -1,4 +1,5 @@
 import React from 'react'
+import { FaStar } from 'react-icons/fa'
 
 function ProductCardItem({product}) {
   return (
@@ -7,14 +8,13 @@ function ProductCardItem({product}) {
         <img src={product.logo} alt="" style={{height:'30px'}}/>
     </div>
     <div className="details">
-
         <p style={{fontSize: '15px'}}>{product.name}</p>
         <div className="stars">
-            <i className="fas fa-star" style={{color: "yellow"}}></i>
-            <i className="fas fa-star" style={{color: "yellow"}}></i>
-            <i className="fas fa-star" style={{color: "yellow"}}></i>
-            <i className="fas fa-star" style={{color: "yellow"}}></i>
-            <i className="fas fa-star"  style={{color: " #D9D9D9"}}></i>
+          <FaStar style={{color: "yellow"}}/>
+          <FaStar style={{color: "yellow"}}/>
+          <FaStar style={{color: "yellow"}}/>
+          <FaStar style={{color: "yellow"}}/>
+          <FaStar style={{color: " #D9D9D9"}}/>
         </div>
         <div className="ratings">
             <p>{product.averageRating} <span>(149 Follows)</span></p>

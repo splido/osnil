@@ -14,9 +14,7 @@ function ProductList() {
 
 
     useEffect(() => {
-
       const apiCategoryUrl = `https://appsalabackend-p20y.onrender.com/category/${slug}`
-
     const fetchCategory = async() =>{
       try{
         const response = await fetch(apiCategoryUrl)
@@ -28,14 +26,14 @@ function ProductList() {
       console.error('Error fetching categories:', error);
     }
   }
-
       fetchCategory()
     }, [slug])
 
     
 
  var input_string = slug
- var output_string = input_string.replace(/-/g, " ").toUpperCase()
+ var output_string = input_string.replace(/-/g, " ")
+ var heading = input_string.replace(/-/g, " ")
     // console.log(category.data)
         return (
         <div>
@@ -43,8 +41,7 @@ function ProductList() {
             <div className="product-header-inner">
             <p className="page-path">Home / {output_string}</p>
             <h1 className="product-heading">
-                The Best Note and
-                Writing <span>Apps</span> in
+                The best {heading} <span>Apps</span> in
             </h1>
         </div>
         </header>
@@ -53,10 +50,7 @@ function ProductList() {
                 <p className="question">What are Note & Writing Apps?</p>
                 <p>Note-writing apps are digital tools designed to help users capture, organize, and manage their notes efficiently. These apps have become increasingly popular due to their convenience and versatility in various aspects of life, 
             both personal and professional. Here's a brief overview of note-writing apps:</p>
-            </div>
-           
-           
-                   
+            </div>  
                     <Products products = {category.data}/>
                     
             <button onClick={handleClick} type="btn-border">Show More</button>

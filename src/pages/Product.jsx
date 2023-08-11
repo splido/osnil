@@ -8,30 +8,58 @@ import Button from '../components/Button'
 import { FaBookmark, FaGlobe } from 'react-icons/fa';
 import { useParams } from 'react-router'
 import SingleProduct from '../components/SingleProduct'
-
+import { useEffect, useState } from "react"
+import SimilarList from '../components/SimilarList'
+import Spinner from '../components/Spinner'
 function Product({products}) {
     const{ slug } = useParams()
+    var input_string = slug
+    var output_string = input_string.replace(/-/g, " ")
+
+    const [singleProduct, setSingleProduct] = useState([])
+    const [loading, setLoading] = useState(true);
+    const [similar, setSimilar] = useState([])
+     useEffect(()=>{
+      const apiUrl = 'https://appsalabackend-p20y.onrender.com/products'
+      const fetchData = async() =>{
+        const response = await fetch(apiUrl)
+        const data = await response.json()
+        const foundProducts = data.data.filter((product) => product.slug === slug);
+        setSingleProduct(foundProducts)
+        similar.push(data.data.filter((product) => product?.Category === singleProduct[0]?.Category))
+        // setSimilar(similar)
+        // console.log(similar)
+        // similar ? setLoading(false) : setLoading(true);
+        setLoading(false)
+      }
+        fetchData()
+      },[slug])
+
+    //   setSimilar(similar[0])
   return (
     <>
     <div>
       <header className="product-page-header container">
-        <p className="page-path">Home / Work & Productivity</p>
+        <p className="page-path">Home / {output_string}</p>
         <div className="product-info-grid">
-           <SingleProduct slug = {slug}/>
+        <img src={singleProduct[0]?.logo} alt=""/>
+    <div className="product-text">
+    <p className="product-info-heading">{singleProduct[0]?.name}</p>
+    <p style={{color: "#454545"}}>{singleProduct[0]?.review}</p>
+    <p>749  Follows</p>
+    </div>
             <div className="buttons">
-                <Button type= "btn-light"> <FaBookmark style={{margin: "10px;"}}/> Save</Button>
-                <Button type= "btn-dark"> <FaGlobe style={{margin: "10px;"}}/>Visit Web</Button>
+                <Button type= "btn-light"> <FaBookmark style={{margin: "10px"}}/> Save</Button>
+                <Button type= "btn-dark"> <FaGlobe style={{margin: "10px"}}/>Visit Web</Button>
             </div>
         </div>
         <div className="product-question">
-            <p className="question">What is Evernote?</p>
-            <p style={{color: "#454545;"}}>Evernote offers useful products/applications to find and collect things on interest. 
-                Its user interface is compact and friendly. Ultimately, it limits the stress in life.Evernote offers useful products/applications to find and collect things on interest. Its user interface is compact and friendly. Ultimately, it limits the stress in life.
-                Evernote offers useful products/applications to find and collect things on interest. </p>
+            <p className="question">What is {singleProduct[0]?.name}?</p>
+            <p style={{color: "#454545"}}>{singleProduct[0]?.shortDescription} </p>
         </div>
         <div className="product-bar">
             <p>
-                Do you wish to use Monday.com?
+                Do you wish to use {output_string}?
             </p>
             <div className="comment-div">
             <div className="reaction selected">
@@ -56,7 +84,6 @@ function Product({products}) {
 
     <div className="product-review-section container">
         <p className="bold">Review</p>
-        <p>
             
 
 TubeBuddy, an innovative browser extension designed to streamline and optimize YouTube content creation, has garnered immense popularity among content creators and marketers. With its array of time-saving features and data-driven functionalities, TubeBuddy has become an indispensable tool in the YouTube landscape. In this comprehensive review, we will explore the various aspects of TubeBuddy, including its Video SEO capabilities, in-depth analytics, time-saving bulk processing, competitor analysis, engagement tools, A/B testing, and customer support. By examining these features and their impact on content creation, we aim to shed light on how TubeBuddy has revolutionized YouTube channel management and success.
@@ -68,97 +95,30 @@ TubeBuddy, an innovative browser extension designed to streamline and optimize Y
 </p>
 <p>Moreover, TubeBuddy empowers users to optimize their video titles, tags, and descriptions directly within the YouTube upload interface. The real-time suggestions and tag explorer functionality make the process efficient and effective, ensuring that videos are easily discoverable by the intended audience. Additionally, the extension provides an invaluable tool to track and manage video rankings, offering content creators greater visibility into their videos' performance on YouTube's search engine.
 </p>
-        </p>
     </div>
 
 <div className="alternatives">
-    <div className="container" style={{width:"60%;"}}>
+    <div className="container" style={{width:"60%"}}>
     <h1 className="heading">Similar Products / Alternatives</h1>
     </div>
-<div className="reviews-section">
-    <div className="cards container">
-    <div className="reviews-card">
-        <div>
-            <img src={monday} alt=""/>
-        </div>
-        <div className="details">
+        {/* { similar ? (
+  <SimilarList similar={similar}/> 
+        ) :
+        <Spinner/>
+          } */}
 
-            <p>monday.com</p>
-            <div className="stars">
-                <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                <i className="fas fa-star"  style={{color: " #D9D9D9;"}}></i>
-            </div>
-            <div className="ratings">
-                <p>4/5 <span>(149 Follows)</span></p>
-            </div>
-        </div>
-        </div>
-        <div className="reviews-card">
-            <div>
-                <img src={dribbble} alt=""/>
-            </div>
-            <div className="details">
+{
 
-                <p>Dribble.com</p>
-                <div className="stars">
-                    <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                    <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                    <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                    <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                    <i className="fas fa-star"  style={{color: " #D9D9D9;"}}></i>
-                </div>
-                <div className="ratings">
-                    <p>4/5 <span>(149 Follows)</span></p>
-                </div>
-            </div>
-            </div>
-            <div className="reviews-card">
-                <div>
-                    <img src={figma}alt=""/>
-                </div>
-                <div className="details">
-
-                    <p>Figma</p>
-                    <div className="stars">
-                        <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                        <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                        <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                        <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                        <i className="fas fa-star"  style={{color: " #D9D9D9;"}}></i>
-                    </div>
-                    <div className="ratings">
-                        <p>4/5 <span>(149 Follows)</span></p>
-                    </div>
-                </div>
-            </div>
-      
-            <div className="reviews-card">
-                <div>
-                    <img src={behance} alt=""/>
-                </div>
-                <div className="details">
-
-                    <p>Behance.net</p>
-                    <div className="stars">
-                        <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                        <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                        <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                        <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                        <i className="fas fa-star"  style={{color: " #D9D9D9;"}}></i>
-                    </div>
-                    <div className="ratings">
-                        <p>4/5 <span>(149 Follows)</span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+loading ? <Spinner/> :
+similar ? (
+  <SimilarList similar={similar}/> 
+):  
+<Spinner/> 
+   
+}
 </div>
 </div>
-</div>
+
 
 <div className="product-review-section container">
     <p>In-Depth Analytics:</p>
@@ -188,95 +148,6 @@ TubeBuddy, an innovative browser extension designed to streamline and optimize Y
 
 
 </div>
-
-<div className="alternatives">
-<div className="container" style={{width: "60%;"}}>
-<h1 className="heading">Similar Products / Alternatives</h1>
-</div>
-<div className="reviews-section" style={{ backgroundColor:"#F5F8FF;" }}>
-    <div className="cards container">
-<div className="reviews-card">
-    <div>
-        <img src={monday} alt=""/>
-    </div>
-    <div className="details">
-
-        <p>monday.com</p>
-        <div className="stars">
-            <i className="fas fa-star" style={{color: "yellow;"}}></i>
-            <i className="fas fa-star" style={{color: "yellow;"}}></i>
-            <i className="fas fa-star" style={{color: "yellow;"}}></i>
-            <i className="fas fa-star" style={{color: "yellow;"}}></i>
-            <i className="fas fa-star"  style={{color: " #D9D9D9;"}}></i>
-        </div>
-        <div className="ratings">
-            <p>4/5 <span>(149 Follows)</span></p>
-        </div>
-    </div>
-    </div>
-    <div className="reviews-card">
-        <div>
-            <img src={dribbble} alt=""/>
-        </div>
-        <div className="details">
-
-            <p>Dribble.com</p>
-            <div className="stars">
-                <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                <i className="fas fa-star"  style={{color: " #D9D9D9;"}}></i>
-            </div>
-            <div className="ratings">
-                <p>4/5 <span>(149 Follows)</span></p>
-            </div>
-        </div>
-        </div>
-        <div className="reviews-card">
-            <div>
-                <img src={figma} alt=""/>
-            </div>
-            <div className="details">
-
-                <p>Figma</p>
-                <div className="stars">
-                    <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                    <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                    <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                    <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                    <i className="fas fa-star"  style={{color: " #D9D9D9;"}}></i>
-                </div>
-                <div className="ratings">
-                    <p>4/5 <span>(149 Follows)</span></p>
-                </div>
-            </div>
-        </div>
-  
-        <div className="reviews-card">
-            <div>
-                <img src={behance} alt=""/>
-            </div>
-            <div className="details">
-
-                <p>Behance.net</p>
-                <div className="stars">
-                    <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                    <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                    <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                    <i className="fas fa-star" style={{color: "yellow;"}}></i>
-                    <i className="fas fa-star"  style={{color: " #D9D9D9;"}}></i>
-                </div>
-                <div className="ratings">
-                    <p>4/5 <span>(149 Follows)</span></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-</div>
-
 <div className="pros-cons container">
     <p className="bold" style={{color:"#00A82D"}}>Positive</p>
     <p>The economy plan offered by GoDaddy.com provides essential services for most users, and is a great plan to start a website with. You will find it easy to access the basic package, as designed for everyone.The economy plan offered by GoDaddy.com provides essential services for most users, and is a great plan to start a website with. You will find it easy to access the basic package, as designed for everyone.</p>

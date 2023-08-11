@@ -1,7 +1,7 @@
 
 // import monday from '../assets/img/monday.png'
 import { Link } from 'react-router-dom'
-
+import { FaStar } from 'react-icons/fa'
 function ProductItem({product}) {
   return (
     <>
@@ -15,13 +15,13 @@ function ProductItem({product}) {
                 <div className="details">
 
 
-<Link to={`/product/${product.slug}`}> {product.name}</Link>
+<Link to={`/${product.slug}`}> {product.name}</Link>
                     <div className="stars">
-                        <i className="fas fa-star"style={{color: "yellow"}}></i>
-                        <i className="fas fa-star"style={{color: "yellow"}}></i>
-                        <i className="fas fa-star"style={{color: "yellow"}}></i>
-                        <i className="fas fa-star"style={{color: "yellow"}}></i>
-                        <i className="fas fa-star" style={{color: " #D9D9D9"}}></i>
+                    <FaStar style={{color: "yellow"}}/>
+          <FaStar style={{color: "yellow"}}/>
+          <FaStar style={{color: "yellow"}}/>
+          <FaStar style={{color: "yellow"}}/>
+          <FaStar style={{color: " #D9D9D9"}}/>
                     </div>
                     <div className="ratings">
                         <p>{product.averageRating}<span>(149 Follows)</span></p>
@@ -36,7 +36,7 @@ function ProductItem({product}) {
         </div>
             <div className="product-bar">
                 <p>
-                    Do you wish to use Monday.com?
+                    Do you wish to use {product.name}?
                 </p>
                 <div className="comment-div">
                 <div className="reaction selected">

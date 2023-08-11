@@ -8,10 +8,17 @@ import ProductList from "./pages/ProductList";
 import { BrowserRouter as Router, Route,Routes } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import PrivateRoute from "./pages/PrivateRoute";
+import Profile from "./pages/Profile";
 
 function App() {
   const [products, setProducts] = useState([])
   const [isAuthenticated, setIsAuthenticated]=useState(false)
+   
+  const [credentials, setCredentials] = useState({
+    email: '',
+    password: '',
+});
+
   useEffect(()=>{
     fetchData()
   
@@ -41,11 +48,12 @@ function App() {
     <Routes>
     <Route exact path="/" element={<Home products={products}/>} />
     <Route path="/category/:slug" element={<ProductList/>} />
-    <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated}/>} />
-    <Route path="/form" element={<PrivateRoute isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} >
-    <Route path="/form" element={<Addcompany/>} />
+    <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} setCredentials={setCredentials} credentials={credentials}/>} />
+    <Route path="/profile/:id" element={<PrivateRoute isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} >
+    {/* <Route path="/form/:id" element={<Addcompany/>} /> */}
+    <Route path="/profile/:id" element={<Profile  credentials={credentials}/>} />
     </Route>
-    <Route path="/product/:slug" element={<Product products={products}/>} />
+    <Route path="/:slug" element={<Product products={products}/>} />
     </Routes>
     </Router>
     <Footer/>
