@@ -6,7 +6,7 @@ import './Review.css';
 
 
 
-
+    
 const Addcompany = () => {
 
   const [formData, setFormData] = useState({
@@ -195,6 +195,8 @@ const Addcompany = () => {
     }));
   };
 
+  const [richText, setRichText] = useState('');
+
   // State to store the list of categories fetched from the API
   const [categories, setCategories] = useState([]);
 
@@ -222,7 +224,7 @@ const Addcompany = () => {
   // ...
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+
 
     try {
       const formDataToUpload = new FormData();
@@ -235,7 +237,7 @@ const Addcompany = () => {
       formDataToUpload.append("Category", formData.Category);
       formDataToUpload.append("shortDescription", formData.shortDescription);
       formDataToUpload.append("longDescription", formData.longDescription);
-      formDataToUpload.append("review", formData.review);
+      formDataToUpload.append("review", formData.richText);
 
       // Append sellerDetails as a JSON string
       formDataToUpload.append("sellerDetails", JSON.stringify(formData.sellerDetails));
@@ -248,17 +250,19 @@ const Addcompany = () => {
 
       console.warn(formDataToUpload);
 
-      // Post the form data to https://localhost:5000/create_products using fetch
+      // Post the form data to http://localhost:5000/create_products using fetch
       const response = await fetch("https://appsalabackend-p20y.onrender.com/create_products", {
         method: "POST",
         body: formDataToUpload,
       });
 
+      
+
       // Check if the response was successful before clearing the form
       if (response.status === true) {
         alert("Data saved successfully",);
       } else {
-        alert(response.data);
+        alert("There is a problem",);
       }
     } catch (error) {
       console.error("Error submitting the form:", error);
@@ -270,7 +274,7 @@ const Addcompany = () => {
 
 
 
-  const [richText, setRichText] = useState('');
+ 
 
   const handleTextChange = (content) => {
     setRichText(content);
@@ -435,7 +439,7 @@ const Addcompany = () => {
             Select a category
           </option>
           {categories.map((category) => (
-            <option key={category._id} value={category.slug}>
+            <option key={category._id} value={category.name}>
               {category.name}
             </option>
           ))}
@@ -460,7 +464,7 @@ const Addcompany = () => {
         />
 
         <label htmlFor="review">Review:</label>
-        <h1>Rich Text Editor</h1>
+        <h1>Review</h1>
         <div>
           <ReactQuill
             value={richText}
