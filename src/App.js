@@ -50,7 +50,7 @@ function App() {
     <Route path="/category/:slug" element={<ProductList/>} />
     <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} setCredentials={setCredentials} credentials={credentials}/>} />
     <Route path="/profile/:id" element={<PrivateRoute isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} >
-    {/* <Route path="/form/:id" element={<Addcompany/>} /> */}
+    
     <Route path="/profile/:id" element={<Profile  credentials={credentials}/>} />
     </Route>
     <Route path="/form" element={<PrivateRoute isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} >
