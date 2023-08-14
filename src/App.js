@@ -53,6 +53,9 @@ function App() {
     {/* <Route path="/form/:id" element={<Addcompany/>} /> */}
     <Route path="/profile/:id" element={<Profile  credentials={credentials}/>} />
     </Route>
+    <Route path="/form" element={<PrivateRoute isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} >
+    <Route path="/form" element={<Addcompany/>} />
+    </Route>
     <Route path="/:slug" element={<Product products={products}/>} />
     </Routes>
     </Router>
