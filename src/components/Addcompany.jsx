@@ -439,7 +439,7 @@ const Addcompany = () => {
             Select a category
           </option>
           {categories.map((category) => (
-            <option key={category._id} value={category.name}>
+            <option key={category._id} value={category.slug}>
               {category.name}
             </option>
           ))}
