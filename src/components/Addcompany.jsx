@@ -6,7 +6,7 @@ import './Review.css';
 
 
 
-    
+
 const Addcompany = () => {
 
   const [formData, setFormData] = useState({
@@ -49,6 +49,27 @@ const Addcompany = () => {
     },
   ]);
 
+  const handleAppPricingChange = (event, index) => {
+    const { name, value } = event.target;
+    const updatedAppPricing = appPricing.map((pricing, i) => {
+      if (i === index) {
+        return {
+          ...pricing,
+          [name]: value,
+        };
+      }
+      return pricing;
+    });
+
+    // Update both the appPricing state and the formData state
+    setAppPricing(updatedAppPricing);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      appPricing: updatedAppPricing,
+    }));
+  };
+
+
   const [appMedia, setAppMedia] = useState({
     officialScreenshots: [],
     officialVideos: [],
@@ -66,20 +87,7 @@ const Addcompany = () => {
     ]);
   };
 
-  const handleAppPricingChange = (event, index) => {
-    const { name, value } = event.target;
-    const updatedAppPricing = appPricing.map((pricing, i) => {
-      if (i === index) {
-        return {
-          ...pricing,
-          [name]: value,
-        };
-      }
-      return pricing;
-    });
 
-    setAppPricing(updatedAppPricing);
-  };
 
   const handleAppMediaChange = (event, field) => {
     const file = event.target.files[0];
@@ -159,6 +167,18 @@ const Addcompany = () => {
     }
   };
 
+  const handleRemoveAppPricing = (index) => {
+    const updatedAppPricing = [...appPricing];
+    updatedAppPricing.splice(index, 1); // Remove the pricing entry at the specified index
+
+    // Update both the appPricing state and the formData state
+    setAppPricing(updatedAppPricing);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      appPricing: updatedAppPricing,
+    }));
+  };
+
 
 
 
@@ -195,8 +215,6 @@ const Addcompany = () => {
     }));
   };
 
-  const [richText, setRichText] = useState('');
-
   // State to store the list of categories fetched from the API
   const [categories, setCategories] = useState([]);
 
@@ -206,7 +224,7 @@ const Addcompany = () => {
   }, []);
 
   const fetchCategories = () => {
-    fetch("https://appsalabackend-p20y.onrender.com/subcategory")
+    fetch("http://localhost:5000/subcategory")
       .then((response) => response.json())
       .then((data) => {
         // Check if the response contains a "data" property that is an array
@@ -224,7 +242,7 @@ const Addcompany = () => {
   // ...
 
   const handleSubmit = async (e) => {
-
+    e.preventDefault()
 
     try {
       const formDataToUpload = new FormData();
@@ -237,7 +255,7 @@ const Addcompany = () => {
       formDataToUpload.append("Category", formData.Category);
       formDataToUpload.append("shortDescription", formData.shortDescription);
       formDataToUpload.append("longDescription", formData.longDescription);
-      formDataToUpload.append("review", formData.richText);
+      formDataToUpload.append("review", formData.review);
 
       // Append sellerDetails as a JSON string
       formDataToUpload.append("sellerDetails", JSON.stringify(formData.sellerDetails));
@@ -248,33 +266,25 @@ const Addcompany = () => {
       // Append appMedia as a JSON string
       formDataToUpload.append("appMedia", JSON.stringify(appMedia));
 
-      console.warn(formDataToUpload);
 
-      // Post the form data to http://localhost:5000/create_products using fetch
-      const response = await fetch("https://appsalabackend-p20y.onrender.com/create_products", {
+
+      // Post the form data to https://localhost:5000/create_products using fetch
+      const response = await fetch("http://localhost:5000/create_products", {
         method: "POST",
         body: formDataToUpload,
       });
 
-      
-
       // Check if the response was successful before clearing the form
       if (response.status === true) {
         alert("Data saved successfully",);
-      } else {
-        alert("There is a problem",);
       }
     } catch (error) {
       console.error("Error submitting the form:", error);
     }
   };
 
-  // ...
 
-
-
-
- 
+  const [richText, setRichText] = useState('');
 
   const handleTextChange = (content) => {
     setRichText(content);
@@ -451,6 +461,7 @@ const Addcompany = () => {
           name="shortDescription"
           value={formData.shortDescription}
           onChange={handleChange}
+          style={{ width: "500px", height: '200px', marginBottom: '100px' }}
           required
         />
 
@@ -460,11 +471,12 @@ const Addcompany = () => {
           name="longDescription"
           value={formData.longDescription}
           onChange={handleChange}
+          style={{ width: "500px", height: '300px', marginBottom: '100px' }}
           required
         />
 
         <label htmlFor="review">Review:</label>
-        <h1>Review</h1>
+        <h1>Review :</h1>
         <div>
           <ReactQuill
             value={richText}
@@ -548,35 +560,39 @@ const Addcompany = () => {
           onChange={handleChange}
         />
 
-        {/* 
-{appPricing.map((pricing, index) => (
-        <div key={index}>
-          <input
-            type="text"
-            placeholder="App Name"
-            name="appName"
-            value={pricing.appName}
-            onChange={(e) => handleAppPricingChange(e, index)}
-          />
-          <input
-            type="number"
-            placeholder="Price"
-            name="price"
-            value={pricing.price}
-            onChange={(e) => handleAppPricingChange(e, index)}
-          />
-          <input
-            type="text"
-            placeholder="Description"
-            name="description"
-            value={pricing.description}
-            onChange={(e) => handleAppPricingChange(e, index)}
-          />
-        </div>
-      ))}
-      <button onClick={handleAddAppPricing}>Add Pricing</button>
 
-      {/* App Media Fields
+        {appPricing.map((pricing, index) => (
+          <div key={index}>
+            <input
+              type="text"
+              placeholder="App Name"
+              name="appName"
+              value={pricing.appName}
+              onChange={(e) => handleAppPricingChange(e, index)}
+            />
+            <input
+              type="number"
+              placeholder="Price"
+              name="price"
+              value={pricing.price}
+              onChange={(e) => handleAppPricingChange(e, index)}
+            />
+            <input
+              type="text"
+              placeholder="Description"
+              name="description"
+              value={pricing.description}
+              onChange={(e) => handleAppPricingChange(e, index)}
+            />
+            <button onClick={() => handleRemoveAppPricing(index)}>Remove</button>
+          </div>
+        ))}
+        <button type="button" onClick={handleAddAppPricing}>
+          Add Pricing
+        </button>
+
+
+        {/* App Media Fields
      <label>Screenshots</label>
       <input
         type="file"
