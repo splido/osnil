@@ -4,7 +4,7 @@ import Button from './Button'
 import Menu from './Menu';
 import { useEffect, useState  } from "react"
 import SeachList from './SearchList';
-import { Link } from 'react-router-dom';
+import { Link,useLocation  } from 'react-router-dom';
 function Navbar({products}) {
 
    const [categories, setCategories] = useState([])
@@ -62,7 +62,14 @@ const filterData= () =>{
   );
   setDataFilter(filteredData)
 }
- 
+const location = useLocation();
+
+// Do not render the navbar on the "Dashboard" page
+const isProfileRoute = location.pathname === '/profile' || location.pathname.startsWith('/profile/');
+
+if (isProfileRoute) {
+  return null;
+}
   return (
     <div>
         <nav>

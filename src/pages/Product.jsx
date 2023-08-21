@@ -26,9 +26,9 @@ function Product({products}) {
         const data = await response.json()
         const foundProducts = data.data.filter((product) => product.slug === slug);
         setSingleProduct(foundProducts)
-        similar.push(data.data.filter((product) => product?.Category === singleProduct[0]?.Category))
+        setSimilar(data.data.filter((product) => product?.Category === singleProduct[0]?.Category))
         // setSimilar(similar)
-        // console.log(similar)
+        console.log(similar)
         // similar ? setLoading(false) : setLoading(true);
         setLoading(false)
       }

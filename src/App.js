@@ -44,7 +44,7 @@ function App() {
   <>
    
     <Router>
-    <Navbar products={products} />
+     <Navbar products={products} /> 
     <Routes>
     <Route exact path="/" element={<Home products={products}/>} />
     <Route path="/category/:slug" element={<ProductList/>} />
@@ -58,8 +58,9 @@ function App() {
     </Route>
     <Route path="/:slug" element={<Product products={products}/>} />
     </Routes>
+    <Footer/>  
     </Router>
-    <Footer/>
+  
   </>
   );
 }

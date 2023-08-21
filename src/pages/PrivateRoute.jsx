@@ -13,7 +13,7 @@ function PrivateRoute({isAuthenticated,setIsAuthenticated}) {
     if (isAuthenticated){
         return(
         <>
-        <button onClick={handleLogout}>Logout</button>
+        {/* <button onClick={handleLogout}>Logout</button> */}
         <Outlet/>
         </>
         )

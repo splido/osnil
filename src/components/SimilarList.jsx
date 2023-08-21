@@ -1,9 +1,14 @@
 import React from 'react'
+import { useEffect,useState } from 'react'
 
 function SimilarList({similar}) {
-  
+    const [similar_products, setSimilar_products] = useState([])
+  useEffect(()=>{
     const similar_products = similar?.slice(0,4)
-    console.log(similar_products)
+    setSimilar_products(similar_products)
+   // console.log(similar_products)
+  },[similar])
+ 
   return (
     <div className="reviews-section">
     <div className="cards container">
